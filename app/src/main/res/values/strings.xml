@@ -7,4 +7,9 @@
     <string name="drawer_menu_rate">Rate Us</string>
     <string name="drawer_menu_contact">Contact Us</string>
     <string name="drawer_menu_about">About</string>
+
+    <!-- Don't translate -->
+    <string name="drawer_menu_open">Open navigation drawer</string>
+    <string name="drawer_menu_close">Close navigation drawer</string>
+
 </resources>
