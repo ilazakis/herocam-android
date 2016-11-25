@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.cocoapatterns.herocam.herocam.about.AboutFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     // UI variables
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: Refactor this into a factory
         Fragment fragment = null;
-        Class fragmentClass;
+        Class fragmentClass = null;
         switch(menuItem.getItemId()) {
             case R.id.drawer_menu_home:
                 // Home fragment
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 // Contact fragment
                 break;
             case R.id.drawer_menu_about:
-                // About fragment
+                fragmentClass = AboutFragment.class;
                 break;
             default:
                 // Default to home fragment
@@ -90,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            //fragment = (Fragment) fragmentClass.newInstance();
+            fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Insert the fragment by replacing any existing fragment
-        //FragmentManager fragmentManager = getSupportFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         // Highlight the selected menu item, change the title to reflect the selection and close the drawer.
         menuItem.setChecked(true);
