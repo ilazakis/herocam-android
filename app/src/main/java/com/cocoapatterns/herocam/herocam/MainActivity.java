@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.cocoapatterns.herocam.herocam.about.AboutFragment;
+import com.cocoapatterns.herocam.herocam.rate.GooglePlay;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 // Help fragment
                 break;
             case R.id.drawer_menu_rate:
-                // Rate us fragment
-                break;
+                GooglePlay.visitGooglePlay(this);
+                return;
             case R.id.drawer_menu_contact:
                 // Contact fragment
                 break;
