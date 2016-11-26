@@ -5,20 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:gravity="center"
+        android:layout_weight="0.1"
         android:orientation="vertical"
-        android:layout_weight="0.1">
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/about_icon"
-            android:layout_gravity="center"
+            android:scaleType="fitXY"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="fitXY"
-            android:layout_marginBottom="5dp"
+            android:id="@+id/about_icon"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/about_logo" />
 
         <TextView
@@ -27,21 +28,39 @@
             android:layout_height="wrap_content"
             android:text="@string/about_version" />
 
-    </android.support.v7.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <TextView
+        android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="@string/about_description" />
 
-    <TextView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:gravity="center"
         android:layout_weight="0.1"
-        android:text="@string/about_learn_more" />
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_learn_more" />
+
+        <ImageView
+            android:id="@+id/learn_more_icon"
+            android:layout_gravity="center"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/about_github" />
+
+    </LinearLayout>
 
 </LinearLayout>
