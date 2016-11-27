@@ -8,6 +8,11 @@
     <string name="drawer_menu_contact">Contact Us</string>
     <string name="drawer_menu_about">About</string>
 
+    <!-- Help -->
+    <string name="help_text_step_1">Just take a photo of a landmark you find interesting.</string>
+    <string name="help_text_step_2">HeromCam identifies the landmark with a magic algorithm.</string>
+    <string name="help_text_step_3">Sit back and learn everything you need about it.</string>
+
     <!-- About -->
     <string name="about_version">Version 1.0</string>
     <string name="about_description">Your personal tourist guide.</string>

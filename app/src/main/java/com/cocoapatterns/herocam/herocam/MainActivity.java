@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.cocoapatterns.herocam.herocam.about.AboutFragment;
 import com.cocoapatterns.herocam.herocam.contact.Contact;
+import com.cocoapatterns.herocam.herocam.help.HelpContainerFragment;
 import com.cocoapatterns.herocam.herocam.rate.GooglePlay;
 
 public class MainActivity extends AppCompatActivity {
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 // Home fragment
                 break;
             case R.id.drawer_menu_help:
-                // Help fragment
+                fragmentClass = HelpContainerFragment.class;
                 break;
             case R.id.drawer_menu_rate:
                 GooglePlay.visitGooglePlay(this);
