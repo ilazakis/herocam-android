@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -23,10 +23,11 @@
             android:src="@drawable/about_logo" />
 
         <TextView
+            android:id="@+id/about_version"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about_version" />
+            tools:text="@string/about_version" />
 
     </LinearLayout>
 
@@ -53,13 +54,12 @@
             android:layout_height="wrap_content"
             android:text="@string/about_learn_more" />
 
-        <ImageView
-            android:id="@+id/learn_more_icon"
-            android:layout_gravity="center"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/about_github" />
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/about_learn_more_icon"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/about_github"/>
 
     </LinearLayout>
 
