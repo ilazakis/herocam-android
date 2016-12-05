@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.cocoapatterns.herocam.herocam.about.AboutFragment;
+import com.cocoapatterns.herocam.herocam.camera.CameraFragment;
 import com.cocoapatterns.herocam.herocam.contact.Contact;
 import com.cocoapatterns.herocam.herocam.help.HelpContainerFragment;
 import com.cocoapatterns.herocam.herocam.rate.GooglePlay;
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         // Setup the navigation view.
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         setupDrawerContent(navigationView);
+
+        // We default to the camera / home screen
+        MenuItem home = navigationView.getMenu().findItem(R.id.drawer_menu_home);
+        selectDrawerItem(home);
     }
 
     @Override
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass = null;
         switch(menuItem.getItemId()) {
             case R.id.drawer_menu_home:
-                // Home fragment
+                fragmentClass = CameraFragment.class;
                 break;
             case R.id.drawer_menu_help:
                 fragmentClass = HelpContainerFragment.class;
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = AboutFragment.class;
                 break;
             default:
-                // Default to home fragment
+                // Default to home fragment?
                 break;
         }
 
