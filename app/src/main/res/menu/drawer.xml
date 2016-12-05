@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_menu_home"
-            android:title="@string/drawer_menu_home" />
+            android:id="@+id/drawer_menu_camera"
+            android:title="@string/drawer_menu_camera" />
         <item
             android:id="@+id/drawer_menu_help"
             android:title="@string/drawer_menu_help" />

@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         setupDrawerContent(navigationView);
 
-        // We default to the camera / home screen
-        MenuItem home = navigationView.getMenu().findItem(R.id.drawer_menu_home);
-        selectDrawerItem(home);
+        // We default to the camera screen
+        MenuItem camera = navigationView.getMenu().findItem(R.id.drawer_menu_camera);
+        selectDrawerItem(camera);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         Class fragmentClass = null;
         switch(menuItem.getItemId()) {
-            case R.id.drawer_menu_home:
+            case R.id.drawer_menu_camera:
                 fragmentClass = CameraFragment.class;
                 break;
             case R.id.drawer_menu_help:
@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawer_menu_about:
                 fragmentClass = AboutFragment.class;
                 break;
-            default:
-                // Default to home fragment?
+            default: // noop
                 break;
         }
 
