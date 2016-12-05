@@ -81,15 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem) {
 
-        // TODO: Refactor this into a factory
         Fragment fragment = null;
-        Class fragmentClass = null;
         switch(menuItem.getItemId()) {
             case R.id.drawer_menu_camera:
-                fragmentClass = CameraFragment.class;
+                fragment = fragmentFactory.getCameraFragment();
                 break;
             case R.id.drawer_menu_help:
-                fragmentClass = HelpContainerFragment.class;
+                fragment = fragmentFactory.getHelpFragment();
                 break;
             case R.id.drawer_menu_rate:
                 GooglePlay.visitGooglePlay(this);
@@ -99,16 +97,13 @@ public class MainActivity extends AppCompatActivity {
                 return;
             case R.id.drawer_menu_about:
                 fragment = fragmentFactory.getAboutFragment();
-                updateFragmentAndMenu(fragment, menuItem);
-                return;
+                break;
             default: // noop
                 break;
         }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (fragment != null) {
+            updateFragmentAndMenu(fragment, menuItem);
         }
     }
 
