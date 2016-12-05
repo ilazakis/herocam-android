@@ -26,10 +26,16 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
 
+    // Fragment factory
+    private FragmentFactory fragmentFactory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Construct fragment factory
+        fragmentFactory = new FragmentFactory(getResources());
 
         // We are using a toolbar, so we need to tell the activity to use it as an actionbar too.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -45,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(navigationView);
 
         // We default to the camera screen
-        MenuItem camera = navigationView.getMenu().findItem(R.id.drawer_menu_camera);
+        MenuItem camera = navigationView.getMenu().findItem(R.id.drawer_menu_about);
         selectDrawerItem(camera);
     }
 
@@ -92,8 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 Contact.visitWebsiteContact(this);
                 return;
             case R.id.drawer_menu_about:
-                fragmentClass = AboutFragment.class;
-                break;
+                fragment = fragmentFactory.getAboutFragment();
+                updateFragmentAndMenu(fragment, menuItem);
+                return;
             default: // noop
                 break;
         }
@@ -103,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private void updateFragmentAndMenu(Fragment fragment, MenuItem menuItem) {
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
