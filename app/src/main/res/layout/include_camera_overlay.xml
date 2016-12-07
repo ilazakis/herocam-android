@@ -2,8 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/camera_overlay_background">
 
     <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/camera_button"
@@ -11,6 +12,6 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/about_github" />
+        android:src="@drawable/camera_overlay_capture_button" />
 
 </LinearLayout>
