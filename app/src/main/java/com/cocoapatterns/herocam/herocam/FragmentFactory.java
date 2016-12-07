@@ -20,20 +20,43 @@ public final class FragmentFactory {
     //
     private Resources resources;
 
+    /**
+     * Fragment factory, responsible for instantiating the application's fragments.
+     * All created fragments are safe to be considered fully inititialised.
+     * All non-dynamic fragment dependencies are taken care of throught the factory's
+     * dependencies e.g. {@link Resources} for string manipulation.
+     *
+     * Note: Passing more granular dependencies e.g. the actual app version {@link String} instead of
+     * a {@link Resources} reference is encouraged, especially if it makes testing easier.
+     *
+     * @param resources Resources reference needed to retrieve application version.
+     */
     public FragmentFactory(Resources resources) {
         this.resources = resources;
     }
 
+    /**
+     *
+     * @return Returns a new fragment instance.
+     */
     public Fragment getAboutFragment() {
         AboutFragment aboutFragment = AboutFragment.newInstance(WEBSITE_URL, getAppVersion());
         return aboutFragment;
     }
 
+    /**
+     *
+     * @return Returns a new fragment instance.
+     */
     public Fragment getHelpFragment() {
         HelpContainerFragment helpFragment = new HelpContainerFragment();
         return helpFragment;
     }
 
+    /**
+     *
+     * @return Returns a new fragment instance.
+     */
     public Fragment getCameraFragment() {
         CameraFragment cameraFragment = new CameraFragment();
         return cameraFragment;
