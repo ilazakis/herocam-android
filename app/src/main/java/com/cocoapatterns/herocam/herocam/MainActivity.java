@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(navigationView);
 
         // We default to the camera screen
-        MenuItem camera = navigationView.getMenu().findItem(R.id.drawer_menu_about);
+        MenuItem camera = navigationView.getMenu().findItem(R.id.drawer_menu_camera);
         selectDrawerItem(camera);
     }
 
