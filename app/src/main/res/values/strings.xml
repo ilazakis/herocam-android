@@ -2,7 +2,7 @@
     <string name="app_name">HeroCam</string>
 
     <!-- Drawer menu items -->
-    <string name="drawer_menu_camera">Camera</string>
+    <string name="drawer_menu_camera">HeroCam</string>
     <string name="drawer_menu_help">Help</string>
     <string name="drawer_menu_rate">Rate Us</string>
     <string name="drawer_menu_contact">Contact Us</string>
