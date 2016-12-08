@@ -59,8 +59,7 @@ public class CameraFragment extends Fragment {
 
         switch (requestCode) {
             case 1:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (permissionGranted(grantResults)) {
                     openCamera(getView());
                 }
         }
@@ -90,5 +89,9 @@ public class CameraFragment extends Fragment {
 
     private Camera getCamera() {
         return CameraService.getCamera();
+    }
+
+    private boolean permissionGranted(@NonNull int[] grantResults) {
+        return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 }
