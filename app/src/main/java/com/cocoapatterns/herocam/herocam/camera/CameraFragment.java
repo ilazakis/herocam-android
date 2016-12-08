@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 
 import com.cocoapatterns.herocam.herocam.R;
 
-public class CameraFragment extends Fragment {
+public class CameraFragment extends Fragment implements View.OnClickListener {
 
     // The Request Code used to identify the "camera permission" request.
     private final int CAMERA_PERMISSION_REQUEST_CODE = 1;
@@ -35,14 +35,7 @@ public class CameraFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_camera, container, false);
         cameraPreviewHolder = (FrameLayout) view.findViewById(R.id.camera_preview);
         captureButton = (AppCompatImageButton) view.findViewById(R.id.camera_button);
-        captureButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // take picture.
-                    }
-                }
-        );
+        captureButton.setOnClickListener(this);
         return view;
     }
 
@@ -102,5 +95,10 @@ public class CameraFragment extends Fragment {
 
     private boolean isPermissionGranted(@NonNull int[] grantResults) {
         return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void onClick(View view) {
+        // take picture.
     }
 }
