@@ -18,8 +18,14 @@ import com.cocoapatterns.herocam.herocam.R;
 
 public class CameraFragment extends Fragment {
 
-    // The "Camera Preview / Holder" view.
+    // The Request Code used to identify the "camera permission" request.
+    private final int CAMERA_PERMISSION_REQUEST_CODE = 1;
+
+    // The "Camera Preview" view.
     private CameraPreview cameraPreview;
+
+    // The "Camera View Holder" layout.
+    private FrameLayout cameraPreviewHolder;
 
     // The "take picture" button.
     private AppCompatImageButton captureButton;
@@ -27,6 +33,7 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_camera, container, false);
+        cameraPreviewHolder = (FrameLayout) view.findViewById(R.id.camera_preview);
         captureButton = (AppCompatImageButton) view.findViewById(R.id.camera_button);
         captureButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -58,7 +65,7 @@ public class CameraFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
-            case 1:
+            case CAMERA_PERMISSION_REQUEST_CODE:
                 if (permissionGranted(grantResults)) {
                     openCamera(getView());
                 }
@@ -74,8 +81,7 @@ public class CameraFragment extends Fragment {
 
     private void updateCameraPreview(Camera camera, View view) {
         cameraPreview = new CameraPreview(this.getContext(), camera);
-        FrameLayout preview = (FrameLayout) view.findViewById(R.id.camera_preview);
-        preview.addView(cameraPreview);
+        cameraPreviewHolder.addView(cameraPreview);
     }
 
     private boolean hasCameraPermission() {
@@ -84,7 +90,7 @@ public class CameraFragment extends Fragment {
     }
 
     private void askForCameraPermission() {
-        requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+        requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
     }
 
     private Camera getCamera() {
