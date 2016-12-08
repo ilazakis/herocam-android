@@ -43,12 +43,9 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // If we have permission to use the CAMERA, open the camera.
         if (hasCameraPermission()) {
             openCamera(view);
-        }
-        // Otherwise ask for permission.
-        else {
+        } else {
             askForCameraPermission();
         }
     }
@@ -61,8 +58,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             case CAMERA_PERMISSION_REQUEST_CODE:
                 if (isPermissionGranted(grantResults)) {
                     openCamera(getView());
-                }
-                else {
+                } else {
                     // TODO: Show a "camera is needed for the app to work" message.
                 }
         }
