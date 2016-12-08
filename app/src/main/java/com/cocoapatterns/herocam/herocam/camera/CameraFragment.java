@@ -62,7 +62,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                     // TODO: Show a "camera is needed for the app to work" message.
                 }
         }
-
     }
 
     private void openCamera(View view) {
