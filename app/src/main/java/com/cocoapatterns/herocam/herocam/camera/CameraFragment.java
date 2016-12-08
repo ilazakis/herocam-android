@@ -66,8 +66,11 @@ public class CameraFragment extends Fragment {
 
         switch (requestCode) {
             case CAMERA_PERMISSION_REQUEST_CODE:
-                if (permissionGranted(grantResults)) {
+                if (isPermissionGranted(grantResults)) {
                     openCamera(getView());
+                }
+                else {
+                    // TODO: Show a "camera is needed for the app to work" message.
                 }
         }
 
@@ -97,7 +100,7 @@ public class CameraFragment extends Fragment {
         return CameraService.getCamera();
     }
 
-    private boolean permissionGranted(@NonNull int[] grantResults) {
+    private boolean isPermissionGranted(@NonNull int[] grantResults) {
         return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 }
