@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,25 @@ import com.cocoapatterns.herocam.herocam.R;
 
 public class CameraFragment extends Fragment {
 
-    // Variables
+    // The "Camera Preview / Holder" view.
     private CameraPreview cameraPreview;
 
-    public CameraFragment() {}
+    // The "take picture" button.
+    private AppCompatImageButton captureButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_camera, container, false);
+        View view =  inflater.inflate(R.layout.fragment_camera, container, false);
+        captureButton = (AppCompatImageButton) view.findViewById(R.id.camera_button);
+        captureButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // take picture.
+                    }
+                }
+        );
+        return view;
     }
 
     @Override
