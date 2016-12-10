@@ -26,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
 
-    // Fragment factory. Meant to be injected in the activity,
-    // typically in the {@link Application} subclass.
-    public FragmentFactory fragmentFactory;
+    /**
+     * Fragment factory. <b>Meant to be injected in the activity.</b>
+     */
+    public FragmentFactory fragmentFactory = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

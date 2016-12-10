@@ -14,21 +14,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.cocoapatterns.herocam.herocam.Permissions;
 import com.cocoapatterns.herocam.herocam.R;
 
 public class CameraFragment extends Fragment implements View.OnClickListener {
 
-    // The Request Code used to identify the "camera permission" request.
+    /** The Request Code used to identify the "camera permission" request. */
     private final int CAMERA_PERMISSION_REQUEST_CODE = 1;
 
-    // The "Camera Preview" view.
+    /** Permissions "extra" key. */
+    private final static String PERMISSION_EXTRA_KEY = "com.cocoapatterns.herocam.camera.CameraFragment.permission";
+
+    /** Permissions "checker". Used to check if we have access to the CAMERA. */
+    private Permissions permissions;
+
+    /** The "Camera Preview" view. */
     private CameraPreview cameraPreview;
 
-    // The "Camera View Holder" layout.
+    /** The "Camera View Holder" layout. */
     private FrameLayout cameraPreviewHolder;
 
-    // The "take picture" button.
+    /** The "take picture" button. */
     private AppCompatImageButton captureButton;
+
+    /**
+     * CameraFragment constructor.
+     *
+     * @param permissions Used to check if we have access to the CAMERA.
+     * @return An instance of CameraFragment.
+     */
+    public static CameraFragment newInstance(Permissions permissions) {
+        CameraFragment fragment = new CameraFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(PERMISSION_EXTRA_KEY, permissions);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        permissions = getArguments().getParcelable(PERMISSION_EXTRA_KEY);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +70,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (hasCameraPermission()) {
+        if (permissions.hasCameraPermission(getContext())) {
             openCamera(view);
         } else {
             askForCameraPermission();
@@ -73,11 +100,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     private void updateCameraPreview(Camera camera, View view) {
         cameraPreview = new CameraPreview(this.getContext(), camera);
         cameraPreviewHolder.addView(cameraPreview);
-    }
-
-    private boolean hasCameraPermission() {
-        int cameraPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
-        return cameraPermission == PackageManager.PERMISSION_GRANTED;
     }
 
     private void askForCameraPermission() {

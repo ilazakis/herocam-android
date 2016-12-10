@@ -12,6 +12,15 @@ import com.cocoapatterns.herocam.herocam.help.HelpContainerFragment;
  * Created by joakim on 05/12/2016.
  */
 
+/**
+ * Fragment factory, responsible for instantiating the application's fragments.
+ * All created fragments are safe to be considered fully inititialised.
+ * All non-dynamic fragment dependencies are taken care of throught the factory's
+ * dependencies e.g. {@link Resources} for string manipulation.
+ *
+ * Note: Passing more granular dependencies e.g. the actual app version {@link String} instead of
+ * a {@link Resources} reference is encouraged, especially if it makes testing easier.
+ */
 public final class FragmentFactory {
 
     //
@@ -20,19 +29,18 @@ public final class FragmentFactory {
     //
     private Resources resources;
 
+    //
+    private Permissions permissions;
+
     /**
-     * Fragment factory, responsible for instantiating the application's fragments.
-     * All created fragments are safe to be considered fully inititialised.
-     * All non-dynamic fragment dependencies are taken care of throught the factory's
-     * dependencies e.g. {@link Resources} for string manipulation.
+     * FragmentFactory constructor.
      *
-     * Note: Passing more granular dependencies e.g. the actual app version {@link String} instead of
-     * a {@link Resources} reference is encouraged, especially if it makes testing easier.
-     *
-     * @param resources Resources reference needed to retrieve application version.
+     * @param resources
+     * @param permissions
      */
-    public FragmentFactory(Resources resources) {
+    public FragmentFactory(Resources resources, Permissions permissions) {
         this.resources = resources;
+        this.permissions = permissions;
     }
 
     /**
@@ -58,7 +66,7 @@ public final class FragmentFactory {
      * @return Returns a new fragment instance.
      */
     public Fragment getCameraFragment() {
-        CameraFragment cameraFragment = new CameraFragment();
+        CameraFragment cameraFragment = CameraFragment.newInstance(permissions);
         return cameraFragment;
     }
 
