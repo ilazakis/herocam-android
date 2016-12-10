@@ -26,16 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
 
-    // Fragment factory
-    private FragmentFactory fragmentFactory;
+    // Fragment factory. Meant to be injected in the activity,
+    // typically in the {@link Application} subclass.
+    public FragmentFactory fragmentFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Construct fragment factory
-        fragmentFactory = new FragmentFactory(getResources());
 
         // We are using a toolbar, so we need to tell the activity to use it as an actionbar too.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
