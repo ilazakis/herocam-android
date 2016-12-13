@@ -1,13 +1,10 @@
 package com.cocoapatterns.herocam.herocam.camera;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +70,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         if (permissions.hasCameraPermission(getContext())) {
             openCamera(view);
         } else {
-            askForCameraPermission();
+            permissions.askForCameraPermission(this, CAMERA_PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -83,7 +80,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
         switch (requestCode) {
             case CAMERA_PERMISSION_REQUEST_CODE:
-                if (isPermissionGranted(grantResults)) {
+                if (this.permissions.isPermissionGranted(grantResults)) {
                     openCamera(getView());
                 } else {
                     // TODO: Show a "camera is needed for the app to work" message.
@@ -102,16 +99,8 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         cameraPreviewHolder.addView(cameraPreview);
     }
 
-    private void askForCameraPermission() {
-        requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
-    }
-
     private Camera getCamera() {
         return CameraService.getCamera();
-    }
-
-    private boolean isPermissionGranted(@NonNull int[] grantResults) {
-        return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override

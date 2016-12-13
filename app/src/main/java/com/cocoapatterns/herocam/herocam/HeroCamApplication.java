@@ -17,13 +17,13 @@ public final class HeroCamApplication extends Application implements Application
     }
 
     @Override
-    public void onActivityCreated(Activity activity, Bundle bundle) {
-        MainActivity mainActivity = (MainActivity) activity;
-        mainActivity.fragmentFactory = new FragmentFactory(getResources(), new Permissions());
-    }
+    public void onActivityCreated(Activity activity, Bundle bundle) {}
 
     @Override
-    public void onActivityStarted(Activity activity) {}
+    public void onActivityStarted(Activity activity) {
+        MainActivity mainActivity = (MainActivity) activity;
+        mainActivity.setFragmentFactory(new FragmentFactory(getResources(), new Permissions()));
+    }
 
     @Override
     public void onActivityResumed(Activity activity) {}

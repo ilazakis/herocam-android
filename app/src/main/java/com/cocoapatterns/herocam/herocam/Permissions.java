@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
 /**
@@ -14,7 +16,7 @@ import android.support.v4.content.ContextCompat;
 /**
  * User permissions wrapper.
  */
-public final class Permissions implements Parcelable {
+public class Permissions implements Parcelable {
 
     /** Default constructor. */
     Permissions() {}
@@ -30,6 +32,24 @@ public final class Permissions implements Parcelable {
     public boolean hasCameraPermission(Context context) {
         int cameraPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA);
         return cameraPermission == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     *
+     * @param fragment
+     * @param requestCode
+     */
+    public void askForCameraPermission(Fragment fragment, int requestCode) {
+        fragment.requestPermissions(new String[]{Manifest.permission.CAMERA}, requestCode);
+    }
+
+    /**
+     *
+     * @param grantResults
+     * @return
+     */
+    public boolean isPermissionGranted(@NonNull int[] grantResults) {
+        return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
     }
 
     // endregion

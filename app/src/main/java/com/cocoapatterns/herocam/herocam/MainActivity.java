@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Fragment factory. <b>Meant to be injected in the activity.</b>
      */
-    public FragmentFactory fragmentFactory = null;
+    private FragmentFactory fragmentFactory = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +48,17 @@ public class MainActivity extends AppCompatActivity {
         // Setup the navigation view.
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         setupDrawerContent(navigationView);
+    }
 
+    private void selectDefaultMenuItem() {
         // We default to the camera screen
         MenuItem camera = navigationView.getMenu().findItem(R.id.drawer_menu_camera);
         selectDrawerItem(camera);
+    }
+
+    public void setFragmentFactory(FragmentFactory factory) {
+        this.fragmentFactory = factory;
+        selectDefaultMenuItem();
     }
 
     @Override
