@@ -35,7 +35,7 @@ public class MainActivityTests {
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Mock
-    public Permissions permissions;
+    private Permissions permissions;
 
     @Before
     public void setup() {
