@@ -31,6 +31,9 @@ dependencies {
         exclude module: 'recyclerview-v7'
         exclude module: 'design'
     })
+    androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.2', {
+        exclude module: 'support-annotations'
+    })
     androidTestCompile "org.mockito:mockito-core:1.+"
     androidTestCompile ("com.android.support.test:runner:0.+", {
         exclude module: 'support-annotations'

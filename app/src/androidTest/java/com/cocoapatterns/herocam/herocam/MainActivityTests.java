@@ -1,10 +1,13 @@
 package com.cocoapatterns.herocam.herocam;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import org.junit.Before;
@@ -18,31 +21,36 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.Intents.intending;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTests {
 
     @Rule
-    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
+    public IntentsTestRule<MainActivity> activityRule = new IntentsTestRule<MainActivity>(MainActivity.class);
 
     @Mock
     private Permissions permissions;
 
     @Before
     public void setup() {
+
+        // Prepare any mocks
         MockitoAnnotations.initMocks(this);
+        mockExternalIntents();
 
         // Inject the activity's dependencies
-        final MainActivity activity = (MainActivity) activityRule.getActivity();
+        final MainActivity activity = activityRule.getActivity();
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -122,4 +130,57 @@ public class MainActivityTests {
         // THEN I still see the last option i.e. I've reached the end of the help / on-boarding / tutorial.
         onView(withText(R.string.help_text_step_3)).check(matches(isCompletelyDisplayed()));
     }
+
+    /**
+     * Test "Rate Us" menu option attempts to reach Google Play.
+     */
+    @Test
+    public void testNavigationDrawerMenuItemRateUs() {
+
+        // GIVEN I open the drawer menu,
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        // WHEN I tap on "Rate Us",
+        onView(withText(R.string.drawer_menu_rate)).perform(click());
+
+        // THEN an intent is launched to visit Google Play.
+        Uri expectedUri = Uri.parse("market://details?id=com.cocoapatterns.herocam.herocam");
+        intended(allOf(
+                hasAction(equalTo(Intent.ACTION_VIEW)),
+                hasData(expectedUri)
+        ));
+    }
+
+    /**
+     * Test "Contact Us" menu option attempts to reach HeroCam's website contact form.
+     */
+    @Test
+    public void testNavigationDrawerMenuItemContactUs() {
+
+        // GIVEN I open the drawer menu,
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        // WHEN I tap on "Contact Us",
+        onView(withText(R.string.drawer_menu_contact)).perform(click());
+
+        // THEN an intent is launched to visit the contact form on the website.
+        Uri expectedUri = Uri.parse("https://herocamapp.github.io/#support");
+        intended(allOf(
+                hasAction(equalTo(Intent.ACTION_VIEW)),
+                hasData(expectedUri),
+                toPackage("com.android.chrome")
+        ));
+    }
+
+    // region Helpers
+
+    /**
+     * Mocks external interactions so that the "web browser picker"
+     * dialog gets dismissed immediately (otherwise it "hangs").
+     */
+    private void mockExternalIntents() {
+        intending(hasAction(Intent.ACTION_VIEW)).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
+    }
+
+    // endregion
 }
